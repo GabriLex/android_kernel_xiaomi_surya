@@ -97,7 +97,7 @@ static inline bool range_before_page(struct ashmem_range *range, size_t page)
 static int ashmem_open(struct inode *inode, struct file *file)
 {
 	struct ashmem_area *asma;
-	int ret;
+	static int ret;
 
 	ret = generic_file_open(inode, file);
 	if (unlikely(ret))
@@ -211,6 +211,7 @@ static int ashmem_file_setup(struct ashmem_area *asma, size_t size,
 	static struct file_operations vmfile_fops;
 	static DEFINE_SPINLOCK(vmfile_fops_lock);
 	struct file *vmfile;
+	static int ret;
 
 	vmfile = shmem_file_setup(ASHMEM_NAME_DEF, size, vma->vm_flags);
 	if (IS_ERR(vmfile))
@@ -240,6 +241,8 @@ static int ashmem_file_setup(struct ashmem_area *asma, size_t size,
 		char *name = ASHMEM_NAME_DEF;
 		struct file *vmfile;
 		struct inode *inode;
+		static int ret;
+		static int ASHMEM_NAME_PREFIX_LEN;
 
 		if (asma->name[ASHMEM_NAME_PREFIX_LEN] != '\0')
 			name = asma->name;

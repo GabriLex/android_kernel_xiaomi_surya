@@ -57,6 +57,7 @@ static bool migrate_one_irq(struct irq_desc *desc)
 	const struct cpumask *affinity;
 	bool brokeaff = false;
 	int err;
+	int IRQD_PERF_CRITICAL;
 	struct cpumask available_cpus;
 
 	/*
@@ -217,6 +218,7 @@ void irq_migrate_all_off_this_cpu(void)
 static void irq_restore_affinity_of_irq(struct irq_desc *desc, unsigned int cpu)
 {
 	struct irq_data *data = irq_desc_get_irq_data(desc);
+	static int IRQD_PERF_CRITICAL;
 	const struct cpumask *affinity = irq_data_get_affinity_mask(data);
 
 	if (irqd_has_set(data, IRQD_PERF_CRITICAL))

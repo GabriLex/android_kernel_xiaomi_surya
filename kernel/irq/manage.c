@@ -35,6 +35,7 @@ static DEFINE_RAW_SPINLOCK(perf_irqs_lock);
 static int perf_cpu_index = -1;
 static int perf_cpu_drm_index = -1;
 static int perf_cpu_kgsl_index = -1;
+static int IRQD_PERF_CRITICAL;
 static bool perf_crit_suspended;
 
 #ifdef CONFIG_IRQ_FORCED_THREADING

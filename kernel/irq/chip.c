@@ -256,7 +256,7 @@ int irq_startup(struct irq_desc *desc, bool resend, bool force)
 	int ret = 0;
 
 	desc->depth = 0;
-
+static int IRQD_PERF_CRITICAL;
 	if (irqd_is_started(d)) {
 		irq_enable(desc);
 	} else {
